@@ -1,0 +1,159 @@
+FORMAT: 1A
+
+# Video Control Demo
+A simple REST interface to control encode/decode for demo capabilities
+
+# Group Video Controls
+The following API defines status retrieval and video controls
+
+## Devices [/cgi-bin/devices.cgi]
+device list
+
+### get default values [GET]
++ Response 200 (application/json)
+
+        {
+          "devices":[
+                {
+                  "name":"Encoder1",
+                  "ip_address":"10.205.111.129",
+                  "multicast_address":"235.1.1.1",
+                  "multicast_port":"6000",
+                  "unicast_port":"4000",
+                  "device_type":"encoder"
+                 },
+                 {
+                  "name":"Decoder1",
+                  "ip_address":"10.205.110.124",
+                  "multicast_address":"235.2.1.1",
+                  "multicast_port":"6010",
+                  "unicast_port":"4010",
+                  "device_type":"decoder"
+                 },
+                 {
+                  "name":"other",
+                  "ip_address":"",
+                  "multicast_address":"",
+                  "multicast_port":"",
+                  "unicast_port":"",
+                  "device_type":"encoder"
+                 }
+             ]
+        }
+
+
+## Default Values [/cgi-bin/defaultvalues.cgi]
+default values 
+
+### get default values [GET]
++ Response 200 (application/json)
+
+        {
+          "encoding": {
+            "status":["playing", "stopped", "waiting"],
+            "resolution":["720p", "1080i"],
+            "video":["hdmi"],
+            "stream_type":["unicast", "multicast"]
+          },
+          "decoding":{
+            "resolution":["1080I60", "1080I5994", "1080I50", "720P60", "720P5994", "720P50", "SD625", "SD525"],
+            "stream_type":["unicast", "multicast"]
+          }
+        }
+
+
+## General Information [/cgi-bin/general.cgi]
+general information
+
+### get general information [GET]
++ Response 200 (application/json)
+
+        {
+          "unit_name":"Encoder1",
+          "model":"model",
+          "software_version":".1 beta",
+          "serial_number":"123456789",
+          "hardware_version":"2",
+          "bootloader":"booloader",
+          "kernel":"kernel",
+          "device_type":"Encoder"
+        }
+
+## Encoder [/cgi-bin/encoding.cgi]
+encoder component controls
+
+### Start encoding [POST]
++ Request (application/json)
+
+        {
+          "status":"playing",
+          "resolution":"1080I",
+          "video":"hdmi",
+          "stream_type":"multicast",
+          "target_address":"235.1.1.1",
+          "target_port":"4444"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "result":"success"
+        }
+
+### get encoding status [GET]
++ Response 200 (application/json)
+
+        {
+          "status":"stopped",
+          "resolution":"720p",
+          "video":"hdmi",
+          "stream_type":"unicast",
+          "target_address":"10.205.110.2",
+          "target_port":"4444"
+        }
+
+## Decoder [/cgi-bin/decoding.cgi]
+Decoder component control
+
+### Start decoding [POST]
++ Request (application/json)
+
+        {
+            "status":"playing",
+            "resolution":"1080I60",
+            "stream_type":"unicast",
+            "source_address":"",
+            "source_port":"4444"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "result":"success"
+        }
+        
+### get decoding status [GET]
++ Response 200 (application/json)
+
+        {
+            "status":"playing",
+            "resolution":"1080I60",
+            "stream_type":"multicast",
+            "source_address":"168.172.0.1",
+            "source_port":"4444"
+        }
+
+## Network [/cgi-bin/network.cgi]
+Network configuration
+
+### get network configuration [GET]
++ Response 200 (application/json)
+
+        {
+            "ip_address":"1.1.1.1",
+            "subnet_mask":"255.255.255.0",
+            "gateway":"1.1.1.1",
+            "dns":"1.1.1.1",
+            "timezone":"EST",
+            "system_clock":"NOW"
+          }
