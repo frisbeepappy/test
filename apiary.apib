@@ -54,7 +54,7 @@ default values
             "resolution":["720p", "1080i"],
             "video":["hdmi"],
             "stream_type":["unicast", "multicast"],
-            "bitrate":"8000"
+            "bitrate":8000
           },
           "decoding":{
             "resolution":["1080I60", "1080I5994", "1080I50", "720P60", "720P5994", "720P50", "SD625", "SD525"],
@@ -93,7 +93,7 @@ encoder component controls
           "stream_type":"multicast",
           "target_address":"235.1.1.1",
           "target_port":"4444",
-          "bitrate":"8000"
+          "video_bitrate":"8000"
         }
 
 + Response 200 (application/json)
@@ -106,13 +106,13 @@ encoder component controls
 + Response 200 (application/json)
 
         {
-          "status":"playing",
+          "status":"stopped",
           "resolution":"720p",
           "video":"hdmi",
           "stream_type":"unicast",
           "target_address":"10.205.110.2",
           "target_port":"4444",
-          "bitrate":6000
+          "bitrate":"6000"
         }
 
 ## Decoder [/cgi-bin/decoding.cgi]
